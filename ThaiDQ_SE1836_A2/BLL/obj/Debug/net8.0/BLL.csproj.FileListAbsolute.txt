@@ -1,0 +1,11 @@
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\bin\Debug\net8.0\BLL.deps.json
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\bin\Debug\net8.0\BLL.dll
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\bin\Debug\net8.0\BLL.pdb
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\BLL.GeneratedMSBuildEditorConfig.editorconfig
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\BLL.AssemblyInfoInputs.cache
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\BLL.AssemblyInfo.cs
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\BLL.csproj.CoreCompileInputs.cache
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\BLL.dll
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\refint\BLL.dll
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\BLL.pdb
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\ref\BLL.dll
