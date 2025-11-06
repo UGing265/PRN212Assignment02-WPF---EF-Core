@@ -6,7 +6,110 @@
         xmlns:local="clr-namespace:ThaiDQ_WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <!-- 🔧 Sửa toàn bộ bố cục từ DockPanel thành Grid có 2 cột -->
     <Grid>
+        <!-- 🔧 Thêm định nghĩa cột: 1 cột cho sidebar, 1 cột cho nội dung -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"/>
+            <!-- Sidebar -->
+            <ColumnDefinition Width="*"/>
+            <!-- Main content -->
+        </Grid.ColumnDefinitions>
 
+        <!-- 🔧 Sidebar (bên trái) -->
+        <StackPanel Grid.Column="0" Background="#1E293B" Margin="0">
+            <TextBlock Text="🏨 Mini Hotel" 
+                       FontSize="20" FontWeight="Bold" 
+                       Foreground="White" Margin="20,20,0,30"/>
+
+            <!-- 🔧 Thêm màu chữ & nền trong suốt để thấy nút rõ -->
+            <Button x:Name="btnRoom" Content="Room Management" 
+                    Foreground="White" Background="Transparent" BorderBrush="Transparent"
+                    Click="btnRoom_Click" Margin="0,5,0,5"/>
+            <Button x:Name="btnCustomer" Content="Customer Management" 
+                    Foreground="White" Background="Transparent" BorderBrush="Transparent"
+                    Click="btnCustomer_Click" Margin="0,5,0,5"/>
+            <Button x:Name="btnBooking" Content="Booking Reservation" 
+                    Foreground="White" Background="Transparent" BorderBrush="Transparent"
+                    Click="btnBooking_Click" Margin="0,5,0,5"/>
+            <Button x:Name="btnReport" Content="Report Statistic" 
+                    Foreground="White" Background="Transparent" BorderBrush="Transparent"
+                    Click="btnReport_Click" Margin="0,5,0,5"/>
+
+            <Button x:Name="btnProfile" Content="My Profile" 
+                    Foreground="White" Background="Transparent" BorderBrush="Transparent"
+                    Click="btnProfile_Click" Margin="0,5,0,5"/>
+            <Button x:Name="btnHistory" Content="Booking History" 
+                    Foreground="White" Background="Transparent" BorderBrush="Transparent"
+                    Click="btnHistory_Click" Margin="0,5,0,5"/>
+
+            <Button Content="Logout" 
+                    Foreground="White" Background="#DC2626" BorderBrush="Transparent"
+                    Click="btnLogout_Click" Margin="0,40,0,0"/>
+        </StackPanel>
+
+        <!-- 🔧 Main Content (bên phải) -->
+        <Grid Grid.Column="1">
+            <!-- Room -->
+            <Grid x:Name="panelRoom" Visibility="Collapsed" Background="#F1F5F9">
+                <StackPanel>
+                    <TextBlock Text="🏠 Room Management" FontSize="26" FontWeight="Bold" Margin="30"/>
+                    <DataGrid x:Name="dgRoom" AutoGenerateColumns="False" Height="300" Margin="10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="RoomID"/>
+                            <DataGridTextColumn Header="RoomNumber"/>
+                            <DataGridTextColumn Header="RoomDetailDescription"/>
+                            <DataGridTextColumn Header="RoomMaxCapacity"/>
+                            <DataGridTextColumn Header="RoomTypeID"/>
+                            <DataGridTextColumn Header="RoomStatus"/>
+                            <DataGridTextColumn Header="RoomPricePerDay"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Grid>
+
+            <!-- Customer -->
+            <Grid x:Name="panelCustomer" Visibility="Collapsed" Background="#F1F5F9">
+                <StackPanel>
+                    <TextBlock Text="👥 Customer Management" FontSize="26" FontWeight="Bold" Margin="30"/>
+                    <DataGrid x:Name="dgCustomer" AutoGenerateColumns="False" Height="300" Margin="10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="CusomterID"/>
+                            <DataGridTextColumn Header="FullName"/>
+                            <DataGridTextColumn Header="Telephone"/>
+                            <DataGridTextColumn Header="EmailAddress"/>
+                            <DataGridTextColumn Header="Birthday"/>
+                            <DataGridTextColumn Header="Status"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Grid>
+
+            <!-- Booking -->
+            <Grid x:Name="panelBooking" Visibility="Collapsed" Background="#F1F5F9">
+                <TextBlock Text="📝 Booking Reservation" FontSize="26" FontWeight="Bold" Margin="30"/>
+            </Grid>
+
+            <!-- Report -->
+            <Grid x:Name="panelReport" Visibility="Collapsed" Background="#F1F5F9">
+                <TextBlock Text="📊 Report Statistic" FontSize="26" FontWeight="Bold" Margin="30"/>
+            </Grid>
+
+            <!-- Profile -->
+            <Grid x:Name="panelProfile" Visibility="Collapsed" Background="#F1F5F9">
+                <TextBlock Text="🙍 My Profile" FontSize="26" FontWeight="Bold" Margin="30"/>
+            </Grid>
+
+            <!-- History -->
+            <Grid x:Name="panelHistory" Visibility="Collapsed" Background="#F1F5F9">
+                <TextBlock Text="📜 Booking History" FontSize="26" FontWeight="Bold" Margin="30"/>
+            </Grid>
+
+            <!-- Dashboard (Default) -->
+            <Grid x:Name="panelDashboard" Background="#F8FAFC">
+                <TextBlock Text="🏨 Welcome to Mini Hotel System" 
+                           FontSize="28" FontWeight="Bold" Margin="40"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

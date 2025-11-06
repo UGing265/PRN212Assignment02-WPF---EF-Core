@@ -9,3 +9,8 @@ D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Deb
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\refint\BLL.dll
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\BLL.pdb
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\ref\BLL.dll
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\bin\Debug\net8.0\DAL.dll
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\bin\Debug\net8.0\DAL.pdb
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\BLL.csproj.AssemblyReference.cache
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\BLL.sourcelink.json
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\BLL\obj\Debug\net8.0\BLL.csproj.Up2Date

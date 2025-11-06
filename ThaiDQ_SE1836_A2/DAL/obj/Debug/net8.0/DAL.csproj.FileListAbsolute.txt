@@ -12,3 +12,4 @@ D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Deb
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\DAL.pdb
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\DAL.genruntimeconfig.cache
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\ref\DAL.dll
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\DAL.sourcelink.json
