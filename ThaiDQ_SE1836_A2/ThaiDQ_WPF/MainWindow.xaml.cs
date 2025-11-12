@@ -24,6 +24,7 @@ namespace ThaiDQ_WPF
         {
             InitializeComponent();
             role = userRole;
+            _customerService = new CustomerService();
             SetupRoleUI();
             LoadCustomer();
         }

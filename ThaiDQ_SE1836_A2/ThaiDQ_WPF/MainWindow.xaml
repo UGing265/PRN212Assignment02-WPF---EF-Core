@@ -56,13 +56,13 @@
                     <TextBlock Text="🏠 Room Management" FontSize="26" FontWeight="Bold" Margin="30"/>
                     <DataGrid x:Name="dgRoom" AutoGenerateColumns="False" Height="300" Margin="10">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="RoomID"/>
-                            <DataGridTextColumn Header="RoomNumber"/>
-                            <DataGridTextColumn Header="RoomDetailDescription"/>
-                            <DataGridTextColumn Header="RoomMaxCapacity"/>
-                            <DataGridTextColumn Header="RoomTypeID"/>
-                            <DataGridTextColumn Header="RoomStatus"/>
-                            <DataGridTextColumn Header="RoomPricePerDay"/>
+                            <DataGridTextColumn Header="RoomID" Binding="{Binding RoomId}"/>
+                            <DataGridTextColumn Header="RoomNumber" Binding="{Binding RoomNumber}"/>
+                            <DataGridTextColumn Header="RoomDetailDescription" Binding="{Binding RoomDetailDescription}"/>
+                            <DataGridTextColumn Header="RoomMaxCapacity" Binding="{Binding RoomMaxCapacity}"/>
+                            <DataGridTextColumn Header="RoomTypeID" Binding="{Binding RoomTypeId}"/>
+                            <DataGridTextColumn Header="RoomStatus" Binding="{Binding RoomStatus}"/>
+                            <DataGridTextColumn Header="RoomPricePerDay" Binding="{Binding RoomPricePerDay}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
@@ -74,12 +74,12 @@
                     <TextBlock Text="👥 Customer Management" FontSize="26" FontWeight="Bold" Margin="30"/>
                     <DataGrid x:Name="dgCustomer" AutoGenerateColumns="False" Height="300" Margin="10">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="CusomterID"/>
-                            <DataGridTextColumn Header="FullName"/>
-                            <DataGridTextColumn Header="Telephone"/>
-                            <DataGridTextColumn Header="EmailAddress"/>
-                            <DataGridTextColumn Header="Birthday"/>
-                            <DataGridTextColumn Header="Status"/>
+                            <DataGridTextColumn Header="CusomterID" Binding="{Binding CustomerId}"/>
+                            <DataGridTextColumn Header="FullName" Binding="{Binding CustomerFullName}"/>
+                            <DataGridTextColumn Header="Telephone" Binding="{Binding Telephone}"/>
+                            <DataGridTextColumn Header="EmailAddress" Binding="{Binding EmailAddress}"/>
+                            <DataGridTextColumn Header="Birthday" Binding="{Binding CustomerBirthday}"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding CustomerStatus}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
@@ -87,12 +87,33 @@
 
             <!-- Booking -->
             <Grid x:Name="panelBooking" Visibility="Collapsed" Background="#F1F5F9">
-                <TextBlock Text="📝 Booking Reservation" FontSize="26" FontWeight="Bold" Margin="30"/>
+                <StackPanel>
+                    <TextBlock Text="📝 Booking Reservation" FontSize="26" FontWeight="Bold" Margin="30"/>
+                    <DataGrid x:Name="dgBookReservation" AutoGenerateColumns="False" Height="300" Margin="10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="BookingReservationId" Binding="{Binding BookingReservationId}"/>
+                            <DataGridTextColumn Header="BookingDate" Binding="{Binding BookingDate}"/>
+                            <DataGridTextColumn Header="TotalPrice" Binding="{Binding TotalPrice}"/>
+                            <DataGridTextColumn Header="CustomerId" Binding="{Binding CustomerId}"/>
+                            <DataGridTextColumn Header="BookingStatus" Binding="{Binding BookingStatus}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+                
             </Grid>
 
             <!-- Report -->
             <Grid x:Name="panelReport" Visibility="Collapsed" Background="#F1F5F9">
                 <TextBlock Text="📊 Report Statistic" FontSize="26" FontWeight="Bold" Margin="30"/>
+                <DataGrid x:Name="dgBookReabcservation" AutoGenerateColumns="False" Height="300" Margin="10">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="BookingReservationId" Binding="{Binding BookingReservationId}"/>
+                        <DataGridTextColumn Header="BookingDate" Binding="{Binding BookingDate}"/>
+                        <DataGridTextColumn Header="TotalPrice" Binding="{Binding TotalPrice}"/>
+                        <DataGridTextColumn Header="CustomerId" Binding="{Binding CustomerId}"/>
+                        <DataGridTextColumn Header="BookingStatus" Binding="{Binding BookingStatus}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
 
             <!-- Profile -->
@@ -102,7 +123,16 @@
 
             <!-- History -->
             <Grid x:Name="panelHistory" Visibility="Collapsed" Background="#F1F5F9">
-                <TextBlock Text="📜 Booking History" FontSize="26" FontWeight="Bold" Margin="30"/>
+                <TextBlock Text="📜 Booking Detail" FontSize="26" FontWeight="Bold" Margin="30"/>
+                <DataGrid x:Name="dgBookReserabcvation" AutoGenerateColumns="False" Height="300" Margin="10">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="BookingReservationId" Binding="{Binding BookingReservationId}"/>
+                        <DataGridTextColumn Header="BookingDate" Binding="{Binding BookingDate}"/>
+                        <DataGridTextColumn Header="TotalPrice" Binding="{Binding TotalPrice}"/>
+                        <DataGridTextColumn Header="CustomerId" Binding="{Binding CustomerId}"/>
+                        <DataGridTextColumn Header="BookingStatus" Binding="{Binding BookingStatus}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
 
             <!-- Dashboard (Default) -->
