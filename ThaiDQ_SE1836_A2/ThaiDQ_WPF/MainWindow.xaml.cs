@@ -18,13 +18,16 @@ namespace ThaiDQ_WPF
     public partial class MainWindow : Window
     {
         private string role;
+        private int? customerId; // Lưu customerId nếu là customer
         private CustomerService _customerService;
         private RoomService _roomService;
         private BookingService _bookingService;
-        public MainWindow(string userRole)
+        
+        public MainWindow(string userRole, int? customerIdParam = null)
         {
             InitializeComponent();
             role = userRole;
+            customerId = customerIdParam;
             _customerService = new CustomerService();
             _roomService = new RoomService();
             _bookingService = new BookingService();
@@ -42,7 +45,6 @@ namespace ThaiDQ_WPF
 
             if (role.ToLower() == "admin")
             {
-                MessageBox.Show($"Đang chạy MainWindow, Role: {role}");
                 // Ẩn chức năng chỉ dành cho customer
                 btnProfile.Visibility = Visibility.Collapsed;
                 btnHistory.Visibility = Visibility.Collapsed;
@@ -113,12 +115,66 @@ namespace ThaiDQ_WPF
         {
             HideAllPanels();
             panelProfile.Visibility = Visibility.Visible;
+            LoadProfile();
+        }
+
+        private void LoadProfile()
+        {
+            if (customerId == null)
+            {
+                MessageBox.Show("Customer ID not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var customer = _customerService.GetCustomerById(customerId.Value);
+            if (customer != null)
+            {
+                txtProfileId.Text = customer.CustomerId.ToString();
+                txtProfileName.Text = customer.CustomerFullName;
+                txtProfileEmail.Text = customer.EmailAddress;
+                txtProfilePhone.Text = customer.Telephone;
+                dpProfileBirthday.SelectedDate = customer.CustomerBirthday?.ToDateTime(TimeOnly.MinValue);
+                txtProfileStatus.Text = customer.CustomerStatus == 1 ? "Active" : "Inactive";
+            }
+        }
+
+        private void btnSaveProfile_Click(object sender, RoutedEventArgs e)
+        {
+            if (customerId == null) return;
+
+            // Validation
+            if (string.IsNullOrWhiteSpace(txtProfileName.Text))
+            {
+                MessageBox.Show("Full Name is required!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var customer = _customerService.GetCustomerById(customerId.Value);
+            if (customer != null)
+            {
+                // Update thông tin
+                customer.CustomerFullName = txtProfileName.Text.Trim();
+                customer.Telephone = txtProfilePhone.Text.Trim();
+                customer.CustomerBirthday = dpProfileBirthday.SelectedDate.HasValue 
+                    ? DateOnly.FromDateTime(dpProfileBirthday.SelectedDate.Value) 
+                    : null;
+
+                _customerService.UpdateCustomer(customer);
+                MessageBox.Show("Profile updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void btnHistory_Click(object sender, RoutedEventArgs e)
         {
             HideAllPanels();
             panelHistory.Visibility = Visibility.Visible;
+            LoadHistoryForCustomer();
+        }
+
+        private void LoadHistoryForCustomer()
+        {
+            // Load booking history cho customer (y chang admin show booking)
+            dgBookReserabcvation.ItemsSource = _bookingService.GetBookingReservations();
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)

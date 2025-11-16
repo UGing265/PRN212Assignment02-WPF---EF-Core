@@ -62,7 +62,7 @@ namespace ThaiDQ_WPF
             {
                 role = "Admin";
                 MessageBox.Show("Welcome to mini hotel, admin", "login", MessageBoxButton.OK, MessageBoxImage.Information);
-                  MainWindow mainWindow = new MainWindow(role);
+                  MainWindow mainWindow = new MainWindow(role, null); // Admin không có customerId
                   mainWindow.Show();
                   this.Close();
                   return; //  dừng lại, không kiểm tra Customer nữa
@@ -73,14 +73,14 @@ namespace ThaiDQ_WPF
 
             if (customer != null)
             {
-                MessageBox.Show("Đăng nhập thành công thế giới bí ẩn", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
-                MainWindow mainWindow = new MainWindow("Admin");
+                MessageBox.Show($"Welcome, {customer.CustomerFullName}!", "Login Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MainWindow mainWindow = new MainWindow(role, customer.CustomerId); // Truyền customerId
                 mainWindow.Show();
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Sai rồi nhóc", "Login", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Invalid email or password!", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

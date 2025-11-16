@@ -24,5 +24,16 @@ namespace DAL.Repositories
         {
             return _db.Customers.ToList();
         }
+
+        public Customer? GetCustomerById(int customerId)
+        {
+            return _db.Customers.FirstOrDefault(c => c.CustomerId == customerId);
+        }
+
+        public void UpdateCustomer(Customer customer)
+        {
+            _db.Customers.Update(customer);
+            _db.SaveChanges();
+        }
     }
 }

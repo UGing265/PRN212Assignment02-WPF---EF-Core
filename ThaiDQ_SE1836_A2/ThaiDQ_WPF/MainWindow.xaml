@@ -137,7 +137,56 @@
 
             <!-- Profile -->
             <Grid x:Name="panelProfile" Visibility="Collapsed" Background="#F1F5F9">
-                <TextBlock Text="🙍 My Profile" FontSize="26" FontWeight="Bold" Margin="30"/>
+                <StackPanel Margin="30">
+                    <TextBlock Text="🙍 My Profile" FontSize="26" FontWeight="Bold" Margin="0,0,0,30"/>
+                    
+                    <!-- Form Profile -->
+                    <Grid MaxWidth="500" HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Customer ID (readonly) -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Customer ID:" VerticalAlignment="Center" Margin="0,0,0,15"/>
+                        <TextBox x:Name="txtProfileId" Grid.Row="0" Grid.Column="1" IsReadOnly="True" Background="#E2E8F0" Margin="0,0,0,15" Height="30" Padding="5"/>
+
+                        <!-- Full Name -->
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Full Name:" VerticalAlignment="Center" Margin="0,0,0,15"/>
+                        <TextBox x:Name="txtProfileName" Grid.Row="1" Grid.Column="1" Margin="0,0,0,15" Height="30" Padding="5"/>
+
+                        <!-- Email (readonly) -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Email:" VerticalAlignment="Center" Margin="0,0,0,15"/>
+                        <TextBox x:Name="txtProfileEmail" Grid.Row="2" Grid.Column="1" IsReadOnly="True" Background="#E2E8F0" Margin="0,0,0,15" Height="30" Padding="5"/>
+
+                        <!-- Telephone -->
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Telephone:" VerticalAlignment="Center" Margin="0,0,0,15"/>
+                        <TextBox x:Name="txtProfilePhone" Grid.Row="3" Grid.Column="1" Margin="0,0,0,15" Height="30" Padding="5"/>
+
+                        <!-- Birthday -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Birthday:" VerticalAlignment="Center" Margin="0,0,0,15"/>
+                        <DatePicker x:Name="dpProfileBirthday" Grid.Row="4" Grid.Column="1" Margin="0,0,0,15" Height="30"/>
+
+                        <!-- Status (readonly) -->
+                        <TextBlock Grid.Row="5" Grid.Column="0" Text="Status:" VerticalAlignment="Center" Margin="0,0,0,15"/>
+                        <TextBox x:Name="txtProfileStatus" Grid.Row="5" Grid.Column="1" IsReadOnly="True" Background="#E2E8F0" Margin="0,0,0,15" Height="30" Padding="5"/>
+
+                        <!-- Save Button -->
+                        <Button x:Name="btnSaveProfile" Grid.Row="6" Grid.Column="1" Content="Save Changes" 
+                                Width="150" HorizontalAlignment="Left" Height="35"
+                                Background="#1E293B" Foreground="White" 
+                                Click="btnSaveProfile_Click" Cursor="Hand"/>
+                    </Grid>
+                </StackPanel>
             </Grid>
 
             <!-- History -->

@@ -1,0 +1,15 @@
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\bin\Debug\net8.0\DAL.deps.json
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\bin\Debug\net8.0\DAL.runtimeconfig.json
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\bin\Debug\net8.0\DAL.dll
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\bin\Debug\net8.0\DAL.pdb
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\DAL.csproj.AssemblyReference.cache
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\DAL.AssemblyInfoInputs.cache
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\DAL.AssemblyInfo.cs
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\DAL.csproj.CoreCompileInputs.cache
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\DAL.sourcelink.json
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\DAL.dll
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\refint\DAL.dll
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\DAL.pdb
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\DAL.genruntimeconfig.cache
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\DAL\obj\Debug\net8.0\ref\DAL.dll
