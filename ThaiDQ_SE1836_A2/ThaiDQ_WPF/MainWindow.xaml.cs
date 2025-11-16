@@ -1,4 +1,5 @@
 ﻿using BLL.Services;
+using DAL.Entities;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -97,6 +98,111 @@ namespace ThaiDQ_WPF
         {
             HideAllPanels();
             panelCustomer.Visibility = Visibility.Visible;
+            ClearCustomerForm();
+        }
+
+        // Customer CRUD Actions
+        private void dgCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgCustomer.SelectedItem is Customer selectedCustomer)
+            {
+                // Auto fill form khi click vào row
+                txtCusName.Text = selectedCustomer.CustomerFullName;
+                txtCusEmail.Text = selectedCustomer.EmailAddress;
+                txtCusPhone.Text = selectedCustomer.Telephone;
+                txtCusPassword.Text = selectedCustomer.Password;
+                dpCusBirthday.SelectedDate = selectedCustomer.CustomerBirthday?.ToDateTime(TimeOnly.MinValue);
+                cbCusStatus.SelectedIndex = selectedCustomer.CustomerStatus == 1 ? 0 : 1;
+            }
+        }
+
+        private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            // Validation
+            if (string.IsNullOrWhiteSpace(txtCusName.Text) || string.IsNullOrWhiteSpace(txtCusEmail.Text))
+            {
+                MessageBox.Show("Full Name and Email are required!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var newCustomer = new Customer
+            {
+                CustomerFullName = txtCusName.Text.Trim(),
+                EmailAddress = txtCusEmail.Text.Trim(),
+                Telephone = txtCusPhone.Text.Trim(),
+                Password = string.IsNullOrWhiteSpace(txtCusPassword.Text) ? "123456" : txtCusPassword.Text.Trim(),
+                CustomerBirthday = dpCusBirthday.SelectedDate.HasValue ? DateOnly.FromDateTime(dpCusBirthday.SelectedDate.Value) : null,
+                CustomerStatus = cbCusStatus.SelectedIndex == 0 ? (byte)1 : (byte)0
+            };
+
+            _customerService.AddCustomer(newCustomer);
+            MessageBox.Show("Customer added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadCustomer();
+            ClearCustomerForm();
+        }
+
+        private void btnUpdateCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgCustomer.SelectedItem is not Customer selectedCustomer)
+            {
+                MessageBox.Show("Please select a customer to update!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Validation
+            if (string.IsNullOrWhiteSpace(txtCusName.Text) || string.IsNullOrWhiteSpace(txtCusEmail.Text))
+            {
+                MessageBox.Show("Full Name and Email are required!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            selectedCustomer.CustomerFullName = txtCusName.Text.Trim();
+            selectedCustomer.EmailAddress = txtCusEmail.Text.Trim();
+            selectedCustomer.Telephone = txtCusPhone.Text.Trim();
+            selectedCustomer.Password = txtCusPassword.Text.Trim();
+            selectedCustomer.CustomerBirthday = dpCusBirthday.SelectedDate.HasValue ? DateOnly.FromDateTime(dpCusBirthday.SelectedDate.Value) : null;
+            selectedCustomer.CustomerStatus = cbCusStatus.SelectedIndex == 0 ? (byte)1 : (byte)0;
+
+            _customerService.UpdateCustomer(selectedCustomer);
+            MessageBox.Show("Customer updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadCustomer();
+            ClearCustomerForm();
+        }
+
+        private void btnDeleteCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgCustomer.SelectedItem is not Customer selectedCustomer)
+            {
+                MessageBox.Show("Please select a customer to delete!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var result = MessageBox.Show($"Are you sure you want to delete customer '{selectedCustomer.CustomerFullName}'?", 
+                "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _customerService.DeleteCustomer(selectedCustomer.CustomerId);
+                MessageBox.Show("Customer deleted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadCustomer();
+                ClearCustomerForm();
+            }
+        }
+
+        private void btnClearCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            ClearCustomerForm();
+        }
+
+        private void ClearCustomerForm()
+        {
+            txtCusName.Clear();
+            txtCusEmail.Clear();
+            txtCusPhone.Clear();
+            txtCusPassword.Clear();
+            dpCusBirthday.SelectedDate = null;
+            cbCusStatus.SelectedIndex = 0;
+            dgCustomer.SelectedItem = null;
         }
 
         private void btnBooking_Click(object sender, RoutedEventArgs e)

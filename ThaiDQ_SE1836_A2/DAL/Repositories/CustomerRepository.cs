@@ -30,10 +30,26 @@ namespace DAL.Repositories
             return _db.Customers.FirstOrDefault(c => c.CustomerId == customerId);
         }
 
+        public void AddCustomer(Customer customer)
+        {
+            _db.Customers.Add(customer);
+            _db.SaveChanges();
+        }
+
         public void UpdateCustomer(Customer customer)
         {
             _db.Customers.Update(customer);
             _db.SaveChanges();
+        }
+
+        public void DeleteCustomer(int customerId)
+        {
+            var customer = _db.Customers.FirstOrDefault(c => c.CustomerId == customerId);
+            if (customer != null)
+            {
+                _db.Customers.Remove(customer);
+                _db.SaveChanges();
+            }
         }
     }
 }
