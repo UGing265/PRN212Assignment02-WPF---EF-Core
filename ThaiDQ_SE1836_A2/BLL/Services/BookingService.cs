@@ -22,6 +22,11 @@ namespace BLL.Services
             return _bookingRepository.GetBookingReservations();
         }
 
+        public List<BookingReservation> GetBookingReservationsByCustomerId(int customerId)
+        {
+            return _bookingRepository.GetBookingReservationsByCustomerId(customerId);
+        }
+
         public List<BookingDetail> GetStatisticReport(DateOnly start, DateOnly end)
         {
             return _bookingRepository.GetStatisticReport(start, end);

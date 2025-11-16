@@ -24,6 +24,18 @@ namespace DAL.Repositories
                 .ToList();
         }
 
+        public List<BookingReservation> GetBookingReservationsByCustomerId(int customerId)
+        {
+            return _db.BookingReservations
+                .Include(x => x.Customer)
+                .Include(x => x.BookingDetails)
+                    .ThenInclude(x => x.Room)
+                    .ThenInclude(x => x.RoomType)
+                .Where(x => x.CustomerId == customerId)
+                .OrderByDescending(x => x.BookingDate)
+                .ToList();
+        }
+
         public List<BookingDetail> GetStatisticReport(DateOnly start, DateOnly end)
         {
             return _db.BookingDetails

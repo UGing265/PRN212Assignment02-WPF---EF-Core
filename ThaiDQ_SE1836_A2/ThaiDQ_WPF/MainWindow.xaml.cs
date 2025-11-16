@@ -173,8 +173,14 @@ namespace ThaiDQ_WPF
 
         private void LoadHistoryForCustomer()
         {
-            // Load booking history cho customer (y chang admin show booking)
-            dgBookReserabcvation.ItemsSource = _bookingService.GetBookingReservations();
+            if (customerId == null)
+            {
+                MessageBox.Show("Customer ID not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Load ONLY booking của customer hiện tại (filter by customerId)
+            dgBookReserabcvation.ItemsSource = _bookingService.GetBookingReservationsByCustomerId(customerId.Value);
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
