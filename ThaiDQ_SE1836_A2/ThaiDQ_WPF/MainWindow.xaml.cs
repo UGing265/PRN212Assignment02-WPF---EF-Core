@@ -118,10 +118,19 @@ namespace ThaiDQ_WPF
 
         private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
         {
-            // Validation
-            if (string.IsNullOrWhiteSpace(txtCusName.Text) || string.IsNullOrWhiteSpace(txtCusEmail.Text))
+            // Validation đầy đủ
+            string validationError = ValidateCustomerInput();
+            if (!string.IsNullOrEmpty(validationError))
             {
-                MessageBox.Show("Full Name and Email are required!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(validationError, "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Check email duplicate
+            var existingCustomers = _customerService.GetCustomers();
+            if (existingCustomers.Any(c => c.EmailAddress.Equals(txtCusEmail.Text.Trim(), StringComparison.OrdinalIgnoreCase)))
+            {
+                MessageBox.Show("Email already exists!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -149,10 +158,20 @@ namespace ThaiDQ_WPF
                 return;
             }
 
-            // Validation
-            if (string.IsNullOrWhiteSpace(txtCusName.Text) || string.IsNullOrWhiteSpace(txtCusEmail.Text))
+            // Validation đầy đủ
+            string validationError = ValidateCustomerInput();
+            if (!string.IsNullOrEmpty(validationError))
             {
-                MessageBox.Show("Full Name and Email are required!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(validationError, "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Check email duplicate (trừ chính nó)
+            var existingCustomers = _customerService.GetCustomers();
+            if (existingCustomers.Any(c => c.EmailAddress.Equals(txtCusEmail.Text.Trim(), StringComparison.OrdinalIgnoreCase) 
+                && c.CustomerId != selectedCustomer.CustomerId))
+            {
+                MessageBox.Show("Email already exists!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -203,6 +222,72 @@ namespace ThaiDQ_WPF
             dpCusBirthday.SelectedDate = null;
             cbCusStatus.SelectedIndex = 0;
             dgCustomer.SelectedItem = null;
+        }
+
+        private string ValidateCustomerInput()
+        {
+            // Full Name validation
+            if (string.IsNullOrWhiteSpace(txtCusName.Text))
+            {
+                return "Full Name is required!";
+            }
+            if (txtCusName.Text.Trim().Length < 2)
+            {
+                return "Full Name must be at least 2 characters!";
+            }
+
+            // Email validation
+            if (string.IsNullOrWhiteSpace(txtCusEmail.Text))
+            {
+                return "Email is required!";
+            }
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCusEmail.Text.Trim(), 
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                return "Invalid email format!";
+            }
+
+            // Password validation
+            if (string.IsNullOrWhiteSpace(txtCusPassword.Text))
+            {
+                return "Password is required!";
+            }
+            if (txtCusPassword.Text.Trim().Length < 3)
+            {
+                return "Password must be at least 3 characters!";
+            }
+
+            // Phone validation (nếu có nhập)
+            if (!string.IsNullOrWhiteSpace(txtCusPhone.Text))
+            {
+                string phone = txtCusPhone.Text.Trim();
+                if (!System.Text.RegularExpressions.Regex.IsMatch(phone, @"^[0-9]{10,11}$"))
+                {
+                    return "Phone number must be 10-11 digits!";
+                }
+            }
+
+            // Birthday validation (không được quá trẻ hoặc quá già)
+            if (dpCusBirthday.SelectedDate.HasValue)
+            {
+                var age = DateTime.Now.Year - dpCusBirthday.SelectedDate.Value.Year;
+                if (age < 18)
+                {
+                    return "Customer must be at least 18 years old!";
+                }
+                if (age > 120)
+                {
+                    return "Invalid birthday!";
+                }
+            }
+
+            // Status validation
+            if (cbCusStatus.SelectedIndex == -1)
+            {
+                return "Please select a status!";
+            }
+
+            return string.Empty; // No error
         }
 
         private void btnBooking_Click(object sender, RoutedEventArgs e)
