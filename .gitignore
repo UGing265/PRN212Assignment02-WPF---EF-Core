@@ -1,1 +1,10 @@
 .vs/ 
+*.tlog
+*.cache
+
+# Build artifacts
+bin/
+obj/
+out/
+publish/
+artifacts/

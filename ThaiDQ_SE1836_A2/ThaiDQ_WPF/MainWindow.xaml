@@ -54,13 +54,13 @@
             <Grid x:Name="panelRoom" Visibility="Collapsed" Background="#F1F5F9">
                 <StackPanel>
                     <TextBlock Text="🏠 Room Management" FontSize="26" FontWeight="Bold" Margin="30"/>
-                    <DataGrid x:Name="dgRoom" AutoGenerateColumns="False" Height="300" Margin="10">
+                    <DataGrid x:Name="dgRoom" AutoGenerateColumns="False" Height="300" Margin="10" CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="RoomID" Binding="{Binding RoomId}"/>
                             <DataGridTextColumn Header="RoomNumber" Binding="{Binding RoomNumber}"/>
                             <DataGridTextColumn Header="RoomDetailDescription" Binding="{Binding RoomDetailDescription}"/>
                             <DataGridTextColumn Header="RoomMaxCapacity" Binding="{Binding RoomMaxCapacity}"/>
-                            <DataGridTextColumn Header="RoomTypeID" Binding="{Binding RoomTypeId}"/>
+                            <DataGridTextColumn Header="RoomTypeID" Binding="{Binding RoomType.RoomTypeName}"/>
                             <DataGridTextColumn Header="RoomStatus" Binding="{Binding RoomStatus}"/>
                             <DataGridTextColumn Header="RoomPricePerDay" Binding="{Binding RoomPricePerDay}"/>
                         </DataGrid.Columns>
@@ -72,7 +72,7 @@
             <Grid x:Name="panelCustomer" Visibility="Collapsed" Background="#F1F5F9">
                 <StackPanel>
                     <TextBlock Text="👥 Customer Management" FontSize="26" FontWeight="Bold" Margin="30"/>
-                    <DataGrid x:Name="dgCustomer" AutoGenerateColumns="False" Height="300" Margin="10">
+                    <DataGrid x:Name="dgCustomer" AutoGenerateColumns="False" Height="300" Margin="10" CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="CusomterID" Binding="{Binding CustomerId}"/>
                             <DataGridTextColumn Header="FullName" Binding="{Binding CustomerFullName}"/>
@@ -94,26 +94,45 @@
                             <DataGridTextColumn Header="BookingReservationId" Binding="{Binding BookingReservationId}"/>
                             <DataGridTextColumn Header="BookingDate" Binding="{Binding BookingDate}"/>
                             <DataGridTextColumn Header="TotalPrice" Binding="{Binding TotalPrice}"/>
-                            <DataGridTextColumn Header="CustomerId" Binding="{Binding CustomerId}"/>
+                            <DataGridTextColumn Header="CustomerFullName" Binding="{Binding Customer.CustomerFullName}"/>
                             <DataGridTextColumn Header="BookingStatus" Binding="{Binding BookingStatus}"/>
+                            <DataGridTextColumn Header="RoomCount" Binding="{Binding BookingDetails.Count}"/>
+                            <DataGridTextColumn Header="FirstRoomNumber" Binding="{Binding BookingDetails[0].Room.RoomNumber}"/>
+                            <DataGridTextColumn Header="FirstRoomType" Binding="{Binding BookingDetails[0].Room.RoomType.RoomTypeName}"/>
+                            <DataGridTextColumn Header="StartDate" Binding="{Binding BookingDetails[0].StartDate}"/>
+                            <DataGridTextColumn Header="EndDate" Binding="{Binding BookingDetails[0].EndDate}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
-                
+
             </Grid>
 
             <!-- Report -->
             <Grid x:Name="panelReport" Visibility="Collapsed" Background="#F1F5F9">
-                <TextBlock Text="📊 Report Statistic" FontSize="26" FontWeight="Bold" Margin="30"/>
-                <DataGrid x:Name="dgBookReabcservation" AutoGenerateColumns="False" Height="300" Margin="10">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="BookingReservationId" Binding="{Binding BookingReservationId}"/>
-                        <DataGridTextColumn Header="BookingDate" Binding="{Binding BookingDate}"/>
-                        <DataGridTextColumn Header="TotalPrice" Binding="{Binding TotalPrice}"/>
-                        <DataGridTextColumn Header="CustomerId" Binding="{Binding CustomerId}"/>
-                        <DataGridTextColumn Header="BookingStatus" Binding="{Binding BookingStatus}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <StackPanel>
+                    <TextBlock Text="📊 Report Statistic" FontSize="26" FontWeight="Bold" Margin="30"/>
+
+                    <!-- Thanh filter Start–End -->
+                    <StackPanel Orientation="Horizontal" Margin="30,0,30,10">
+                        <TextBlock Text="From:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <DatePicker x:Name="dpStart" Width="130" Margin="0,0,20,0"/>
+                        <TextBlock Text="To:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <DatePicker x:Name="dpEnd" Width="130" Margin="0,0,20,0"/>
+                        <Button x:Name="btnStReport" Content="Generate" Width="100" Click="btnStReport_Click"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="dgReport" AutoGenerateColumns="False" Height="300" Margin="10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="BookingReservationId" Binding="{Binding BookingReservationId}"/>
+                            <DataGridTextColumn Header="BookingDate" Binding="{Binding BookingDate}"/>
+                            <DataGridTextColumn Header="TotalPrice" Binding="{Binding TotalPrice}"/>
+                            <DataGridTextColumn Header="CustomerId" Binding="{Binding CustomerId}"/>
+                            <DataGridTextColumn Header="BookingStatus" Binding="{Binding BookingStatus}"/>
+                            <DataGridTextColumn Header="StartDate" Binding="{Binding StartDate}"/>
+                            <DataGridTextColumn Header="EndDate" Binding="{Binding EndDate}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
             </Grid>
 
             <!-- Profile -->

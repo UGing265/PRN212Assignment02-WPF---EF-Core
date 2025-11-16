@@ -19,14 +19,19 @@ namespace ThaiDQ_WPF
     {
         private string role;
         private CustomerService _customerService;
-
+        private RoomService _roomService;
+        private BookingService _bookingService;
         public MainWindow(string userRole)
         {
             InitializeComponent();
             role = userRole;
             _customerService = new CustomerService();
+            _roomService = new RoomService();
+            _bookingService = new BookingService();
             SetupRoleUI();
             LoadCustomer();
+            LoadRoom();
+            LoadBooking();
         }
 
         private void SetupRoleUI()
@@ -56,6 +61,18 @@ namespace ThaiDQ_WPF
             dgCustomer.ItemsSource = _customerService.GetCustomers();
         }
 
+        private void LoadRoom()
+        {
+            dgRoom.ItemsSource = _roomService.GetRooms();
+        }
+        private void LoadBooking()
+        {
+            dgBookReservation.ItemsSource = _bookingService.GetBookingReservations();
+        }
+        private void LoadStatisticReport()
+        {
+            //dgReport.ItemsSource = _bookingService.GetStatisticReport();
+        }
 
         private void HideAllPanels()
         {
@@ -108,6 +125,17 @@ namespace ThaiDQ_WPF
         {
             MessageBox.Show("Logout successful!");
             Close();
+        }
+
+        private void btnStReport_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime startDt = dpStart.SelectedDate ?? DateTime.MinValue;
+            DateTime endDt = dpEnd.SelectedDate ?? DateTime.MaxValue;
+
+            DateOnly start = DateOnly.FromDateTime(startDt);
+            DateOnly end = DateOnly.FromDateTime(endDt);
+
+            dgReport.ItemsSource = _bookingService.GetStatisticReport(start, end);
         }
     }
 }
