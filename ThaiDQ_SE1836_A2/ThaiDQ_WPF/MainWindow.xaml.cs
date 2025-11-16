@@ -67,6 +67,7 @@ namespace ThaiDQ_WPF
         private void LoadRoom()
         {
             dgRoom.ItemsSource = _roomService.GetRooms();
+            cbRoomType.ItemsSource = _roomService.GetRoomTypes();
         }
         private void LoadBooking()
         {
@@ -92,6 +93,173 @@ namespace ThaiDQ_WPF
         {
             HideAllPanels();
             panelRoom.Visibility = Visibility.Visible;
+            ClearRoomForm();
+        }
+
+        // Room CRUD Actions
+        private void dgRoom_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgRoom.SelectedItem is RoomInformation selectedRoom)
+            {
+                // Auto fill form khi click vào row
+                txtRoomNumber.Text = selectedRoom.RoomNumber;
+                cbRoomType.SelectedValue = selectedRoom.RoomTypeId;
+                txtRoomCapacity.Text = selectedRoom.RoomMaxCapacity?.ToString();
+                txtRoomPrice.Text = selectedRoom.RoomPricePerDay?.ToString();
+                cbRoomStatus.SelectedIndex = selectedRoom.RoomStatus == 1 ? 0 : 1;
+                txtRoomDescription.Text = selectedRoom.RoomDetailDescription;
+            }
+        }
+
+        private void btnAddRoom_Click(object sender, RoutedEventArgs e)
+        {
+            // Validation
+            string validationError = ValidateRoomInput();
+            if (!string.IsNullOrEmpty(validationError))
+            {
+                MessageBox.Show(validationError, "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Check room number duplicate
+            var existingRooms = _roomService.GetRooms();
+            if (existingRooms.Any(r => r.RoomNumber.Equals(txtRoomNumber.Text.Trim(), StringComparison.OrdinalIgnoreCase)))
+            {
+                MessageBox.Show("Room number already exists!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var newRoom = new RoomInformation
+            {
+                RoomNumber = txtRoomNumber.Text.Trim(),
+                RoomTypeId = (int)cbRoomType.SelectedValue,
+                RoomMaxCapacity = int.Parse(txtRoomCapacity.Text.Trim()),
+                RoomPricePerDay = decimal.Parse(txtRoomPrice.Text.Trim()),
+                RoomStatus = cbRoomStatus.SelectedIndex == 0 ? (byte)1 : (byte)0,
+                RoomDetailDescription = txtRoomDescription.Text.Trim()
+            };
+
+            _roomService.AddRoom(newRoom);
+            MessageBox.Show("Room added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadRoom();
+            ClearRoomForm();
+        }
+
+        private void btnUpdateRoom_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgRoom.SelectedItem is not RoomInformation selectedRoom)
+            {
+                MessageBox.Show("Please select a room to update!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Validation
+            string validationError = ValidateRoomInput();
+            if (!string.IsNullOrEmpty(validationError))
+            {
+                MessageBox.Show(validationError, "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Check room number duplicate (trừ chính nó)
+            var existingRooms = _roomService.GetRooms();
+            if (existingRooms.Any(r => r.RoomNumber.Equals(txtRoomNumber.Text.Trim(), StringComparison.OrdinalIgnoreCase)
+                && r.RoomId != selectedRoom.RoomId))
+            {
+                MessageBox.Show("Room number already exists!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            selectedRoom.RoomNumber = txtRoomNumber.Text.Trim();
+            selectedRoom.RoomTypeId = (int)cbRoomType.SelectedValue;
+            selectedRoom.RoomMaxCapacity = int.Parse(txtRoomCapacity.Text.Trim());
+            selectedRoom.RoomPricePerDay = decimal.Parse(txtRoomPrice.Text.Trim());
+            selectedRoom.RoomStatus = cbRoomStatus.SelectedIndex == 0 ? (byte)1 : (byte)0;
+            selectedRoom.RoomDetailDescription = txtRoomDescription.Text.Trim();
+
+            _roomService.UpdateRoom(selectedRoom);
+            MessageBox.Show("Room updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadRoom();
+            ClearRoomForm();
+        }
+
+        private void btnDeleteRoom_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgRoom.SelectedItem is not RoomInformation selectedRoom)
+            {
+                MessageBox.Show("Please select a room to delete!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var result = MessageBox.Show($"Are you sure you want to delete room '{selectedRoom.RoomNumber}'?",
+                "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _roomService.DeleteRoom(selectedRoom.RoomId);
+                MessageBox.Show("Room deleted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadRoom();
+                ClearRoomForm();
+            }
+        }
+
+        private void btnClearRoom_Click(object sender, RoutedEventArgs e)
+        {
+            ClearRoomForm();
+        }
+
+        private void ClearRoomForm()
+        {
+            txtRoomNumber.Clear();
+            cbRoomType.SelectedIndex = -1;
+            txtRoomCapacity.Clear();
+            txtRoomPrice.Clear();
+            cbRoomStatus.SelectedIndex = 0;
+            txtRoomDescription.Clear();
+            dgRoom.SelectedItem = null;
+        }
+
+        private string ValidateRoomInput()
+        {
+            // Room Number validation
+            if (string.IsNullOrWhiteSpace(txtRoomNumber.Text))
+            {
+                return "Room Number is required!";
+            }
+
+            // Room Type validation
+            if (cbRoomType.SelectedValue == null)
+            {
+                return "Please select a Room Type!";
+            }
+
+            // Capacity validation
+            if (string.IsNullOrWhiteSpace(txtRoomCapacity.Text))
+            {
+                return "Room Capacity is required!";
+            }
+            if (!int.TryParse(txtRoomCapacity.Text.Trim(), out int capacity) || capacity < 1 || capacity > 10)
+            {
+                return "Room Capacity must be between 1 and 10!";
+            }
+
+            // Price validation
+            if (string.IsNullOrWhiteSpace(txtRoomPrice.Text))
+            {
+                return "Room Price is required!";
+            }
+            if (!decimal.TryParse(txtRoomPrice.Text.Trim(), out decimal price) || price <= 0)
+            {
+                return "Room Price must be greater than 0!";
+            }
+
+            // Status validation
+            if (cbRoomStatus.SelectedIndex == -1)
+            {
+                return "Please select a Status!";
+            }
+
+            return string.Empty; // No error
         }
 
         private void btnCustomer_Click(object sender, RoutedEventArgs e)
