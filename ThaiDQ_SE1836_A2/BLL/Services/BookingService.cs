@@ -31,5 +31,30 @@ namespace BLL.Services
         {
             return _bookingRepository.GetStatisticReport(start, end);
         }
+
+        public void AddBookingReservation(BookingReservation booking)
+        {
+            _bookingRepository.AddBookingReservation(booking);
+        }
+
+        public void UpdateBookingReservation(BookingReservation booking)
+        {
+            _bookingRepository.UpdateBookingReservation(booking);
+        }
+
+        public void DeleteBookingReservation(int bookingId)
+        {
+            _bookingRepository.DeleteBookingReservation(bookingId);
+        }
+
+        public List<Customer> GetCustomers()
+        {
+            return _bookingRepository.GetCustomers();
+        }
+
+        public List<RoomInformation> GetAvailableRooms()
+        {
+            return _bookingRepository.GetAvailableRooms();
+        }
     }
 }

@@ -45,5 +45,40 @@ namespace DAL.Repositories
                 .OrderByDescending(x => x.StartDate)
                 .ToList();
         }
+
+        public void AddBookingReservation(BookingReservation booking)
+        {
+            _db.BookingReservations.Add(booking);
+            _db.SaveChanges();
+        }
+
+        public void UpdateBookingReservation(BookingReservation booking)
+        {
+            _db.BookingReservations.Update(booking);
+            _db.SaveChanges();
+        }
+
+        public void DeleteBookingReservation(int bookingId)
+        {
+            var booking = _db.BookingReservations.Find(bookingId);
+            if (booking != null)
+            {
+                _db.BookingReservations.Remove(booking);
+                _db.SaveChanges();
+            }
+        }
+
+        public List<Customer> GetCustomers()
+        {
+            return _db.Customers.ToList();
+        }
+
+        public List<RoomInformation> GetAvailableRooms()
+        {
+            return _db.RoomInformations
+                .Include(r => r.RoomType)
+                .Where(r => r.RoomStatus == 1)
+                .ToList();
+        }
     }
 }

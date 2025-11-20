@@ -77,7 +77,7 @@ namespace ThaiDQ_WPF {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ThaiDQ_WPF;component/loginwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ThaiDQ_WPF;V1.0.0.0;component/loginwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\LoginWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

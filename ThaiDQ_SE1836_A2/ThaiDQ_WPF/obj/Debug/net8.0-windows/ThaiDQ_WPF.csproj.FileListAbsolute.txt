@@ -81,3 +81,5 @@ D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\ThaiDQ_WPF.pdb
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\ThaiDQ_WPF.genruntimeconfig.cache
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\ref\ThaiDQ_WPF.dll
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\BookingDialog.g.cs
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\BookingDialog.baml

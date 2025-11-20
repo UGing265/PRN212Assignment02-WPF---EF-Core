@@ -27,6 +27,7 @@ namespace ThaiDQ_WPF
         // Cache full lists for search
         private List<Customer> _allCustomers;
         private List<RoomInformation> _allRooms;
+        private List<BookingReservation> _allBookings;
         
         public MainWindow(string userRole, int? customerIdParam = null)
         {
@@ -73,11 +74,11 @@ namespace ThaiDQ_WPF
         {
             _allRooms = _roomService.GetRooms();
             dgRoom.ItemsSource = _allRooms;
-            cbRoomType.ItemsSource = _roomService.GetRoomTypes();
         }
         private void LoadBooking()
         {
-            dgBookReservation.ItemsSource = _bookingService.GetBookingReservations();
+            _allBookings = _bookingService.GetBookingReservations();
+            dgBookReservation.ItemsSource = _allBookings;
         }
         private void LoadStatisticReport()
         {
@@ -158,47 +159,35 @@ namespace ThaiDQ_WPF
             panelRoom.Visibility = Visibility.Visible;
         }
 
-        private void btnAddRoom_Click(object sender, RoutedEventArgs e)
+        private void btnManageRoom_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new RoomDialog(_roomService.GetRoomTypes());
+            RoomInformation? selectedRoom = dgRoom.SelectedItem as RoomInformation;
+            var dialog = new RoomDialog(selectedRoom, _roomService.GetRoomTypes(), _allRooms);
+            
             if (dialog.ShowDialog() == true)
             {
-                // Check room number duplicate
-                if (_allRooms.Any(r => r.RoomNumber.Equals(dialog.Room.RoomNumber, StringComparison.OrdinalIgnoreCase)))
-                {
-                    MessageBox.Show("Room number already exists!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                _roomService.AddRoom(dialog.Room);
-                MessageBox.Show("Room added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoadRoom();
+                MessageBox.Show(dialog.IsCreateMode ? "Room added successfully!" : "Room updated successfully!", 
+                    "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
-        private void btnUpdateRoom_Click(object sender, RoutedEventArgs e)
+        private void btnSearchRoom_Click(object sender, RoutedEventArgs e)
         {
-            if (dgRoom.SelectedItem is not RoomInformation selectedRoom)
+            if (string.IsNullOrWhiteSpace(txtSearchRoom.Text))
             {
-                MessageBox.Show("Please select a room to update!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                LoadRoom(); // Reload all if search is empty
                 return;
             }
 
-            var dialog = new RoomDialog(selectedRoom, _roomService.GetRoomTypes());
-            if (dialog.ShowDialog() == true)
-            {
-                // Check room number duplicate (trừ chính nó)
-                if (_allRooms.Any(r => r.RoomNumber.Equals(dialog.Room.RoomNumber, StringComparison.OrdinalIgnoreCase)
-                    && r.RoomId != selectedRoom.RoomId))
-                {
-                    MessageBox.Show("Room number already exists!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
+            var searchText = txtSearchRoom.Text.Trim().ToLower();
+            var results = _allRooms.Where(r =>
+                r.RoomNumber.ToLower().Contains(searchText) ||
+                (r.RoomDetailDescription != null && r.RoomDetailDescription.ToLower().Contains(searchText)) ||
+                (r.RoomType != null && r.RoomType.RoomTypeName.ToLower().Contains(searchText))
+            ).ToList();
 
-                _roomService.UpdateRoom(dialog.Room);
-                MessageBox.Show("Room updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                LoadRoom();
-            }
+            dgRoom.ItemsSource = results;
         }
 
         private void btnDeleteRoom_Click(object sender, RoutedEventArgs e)
@@ -321,49 +310,66 @@ namespace ThaiDQ_WPF
             dgReport.ItemsSource = _bookingService.GetStatisticReport(start, end);
         }
 
-        // Search functionality for Customer
-        private void txtSearchCustomer_TextChanged(object sender, TextChangedEventArgs e)
+        // Booking Management
+        private void btnManageBooking_Click(object sender, RoutedEventArgs e)
         {
-            string searchText = txtSearchCustomer.Text.ToLower().Trim();
+            var selectedBooking = dgBookReservation.SelectedItem as BookingReservation;
+            var customers = _bookingService.GetCustomers();
+            var availableRooms = _bookingService.GetAvailableRooms();
 
-            if (string.IsNullOrWhiteSpace(searchText))
+            var dialog = new BookingDialog(selectedBooking, _allBookings, customers, availableRooms);
+            if (dialog.ShowDialog() == true)
             {
-                // Show all if search is empty
-                dgCustomer.ItemsSource = _allCustomers;
-            }
-            else
-            {
-                // Filter by Name, Email, or Phone
-                var filteredList = _allCustomers.Where(c =>
-                    (c.CustomerFullName != null && c.CustomerFullName.ToLower().Contains(searchText)) ||
-                    (c.EmailAddress != null && c.EmailAddress.ToLower().Contains(searchText)) ||
-                    (c.Telephone != null && c.Telephone.Contains(searchText))
-                ).ToList();
-
-                dgCustomer.ItemsSource = filteredList;
+                LoadBooking();
+                string action = dialog.IsCreateMode ? "created" : "updated";
+                MessageBox.Show($"Booking {action} successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
-        // Search functionality for Room
-        private void txtSearchRoom_TextChanged(object sender, TextChangedEventArgs e)
+        private void btnDeleteBooking_Click(object sender, RoutedEventArgs e)
         {
-            string searchText = txtSearchRoom.Text.ToLower().Trim();
+            var selectedBooking = dgBookReservation.SelectedItem as BookingReservation;
+            if (selectedBooking == null)
+            {
+                MessageBox.Show("Please select a booking to delete.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var result = MessageBox.Show($"Are you sure you want to delete booking #{selectedBooking.BookingReservationId}?",
+                "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    _bookingService.DeleteBookingReservation(selectedBooking.BookingReservationId);
+                    LoadBooking();
+                    MessageBox.Show("Booking deleted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting booking: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void btnSearchBooking_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = txtSearchBooking.Text.ToLower().Trim();
 
             if (string.IsNullOrWhiteSpace(searchText))
             {
-                // Show all if search is empty
-                dgRoom.ItemsSource = _allRooms;
+                dgBookReservation.ItemsSource = _allBookings;
             }
             else
             {
-                // Filter by Room Number or Description
-                var filteredList = _allRooms.Where(r =>
-                    (r.RoomNumber != null && r.RoomNumber.ToLower().Contains(searchText)) ||
-                    (r.RoomDetailDescription != null && r.RoomDetailDescription.ToLower().Contains(searchText)) ||
-                    (r.RoomType?.RoomTypeName != null && r.RoomType.RoomTypeName.ToLower().Contains(searchText))
+                var filteredList = _allBookings.Where(b =>
+                    (b.BookingReservationId.ToString().Contains(searchText)) ||
+                    (b.Customer?.CustomerFullName != null && b.Customer.CustomerFullName.ToLower().Contains(searchText)) ||
+                    (b.BookingStatus.ToString().Contains(searchText))
                 ).ToList();
 
-                dgRoom.ItemsSource = filteredList;
+                dgBookReservation.ItemsSource = filteredList;
             }
         }
     }

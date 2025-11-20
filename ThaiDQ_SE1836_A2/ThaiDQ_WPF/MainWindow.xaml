@@ -66,67 +66,22 @@
                     <StackPanel>
                         <TextBlock Text="🏠 Room Management" FontSize="22" FontWeight="Bold" Margin="0,0,0,20"/>
 
-                        <!-- Search Box -->
+                        <!-- Search Box with Button -->
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                             <TextBlock Text="🔍 Search:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="SemiBold"/>
-                            <TextBox x:Name="txtSearchRoom" Width="300" Height="30" Padding="5" 
-                                     TextChanged="txtSearchRoom_TextChanged"
+                            <TextBox x:Name="txtSearchRoom" Width="300" Height="35" Padding="5" 
                                      ToolTip="Search by Room Number or Description"/>
+                            <Button x:Name="btnSearchRoom" Content="Search" Width="100" Height="35" Margin="10,0,0,0"
+                                    Background="#8B5CF6" Foreground="White" Click="btnSearchRoom_Click" Cursor="Hand"/>
                         </StackPanel>
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="10"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="10"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <!-- Row 1 -->
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Room Number:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                            <TextBox x:Name="txtRoomNumber" Grid.Row="0" Grid.Column="1" Height="30" Padding="5"/>
-
-                            <TextBlock Grid.Row="0" Grid.Column="3" Text="Room Type:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                            <ComboBox x:Name="cbRoomType" Grid.Row="0" Grid.Column="4" Height="30" 
-                                      DisplayMemberPath="RoomTypeName" SelectedValuePath="RoomTypeId"/>
-
-                            <TextBlock Grid.Row="0" Grid.Column="6" Text="Max Capacity:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                            <TextBox x:Name="txtRoomCapacity" Grid.Row="0" Grid.Column="7" Height="30" Padding="5"/>
-
-                            <!-- Row 2 -->
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Price/Day:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                            <TextBox x:Name="txtRoomPrice" Grid.Row="2" Grid.Column="1" Height="30" Padding="5"/>
-
-                            <TextBlock Grid.Row="2" Grid.Column="3" Text="Status:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                            <ComboBox x:Name="cbRoomStatus" Grid.Row="2" Grid.Column="4" Height="30">
-                                <ComboBoxItem Content="Active" Tag="1"/>
-                                <ComboBoxItem Content="Inactive" Tag="0"/>
-                            </ComboBox>
-
-                            <TextBlock Grid.Row="2" Grid.Column="6" Text="Description:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                            <TextBox x:Name="txtRoomDescription" Grid.Row="2" Grid.Column="7" Height="30" Padding="5"/>
-
-                            <!-- Buttons -->
-                            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="8" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                                <Button x:Name="btnAddRoom" Content="Add New" Width="100" Height="35" Margin="0,0,10,0"
-                                        Background="#10B981" Foreground="White" Click="btnAddRoom_Click" Cursor="Hand"/>
-                                <Button x:Name="btnUpdateRoom" Content="Update" Width="100" Height="35" Margin="0,0,10,0"
-                                        Background="#3B82F6" Foreground="White" Click="btnUpdateRoom_Click" Cursor="Hand"/>
-                                <Button x:Name="btnDeleteRoom" Content="Delete" Width="100" Height="35"
-                                        Background="#EF4444" Foreground="White" Click="btnDeleteRoom_Click" Cursor="Hand"/>
-                            </StackPanel>
-                        </Grid>
+                        <!-- Buttons -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                            <Button x:Name="btnManageRoom" Content="Manage" Width="100" Height="35" Margin="0,0,10,0"
+                                    Background="#3B82F6" Foreground="White" Click="btnManageRoom_Click" Cursor="Hand"/>
+                            <Button x:Name="btnDeleteRoom" Content="Delete" Width="100" Height="35"
+                                    Background="#EF4444" Foreground="White" Click="btnDeleteRoom_Click" Cursor="Hand"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
 
@@ -198,6 +153,27 @@
             <Grid x:Name="panelBooking" Visibility="Collapsed" Background="#F1F5F9">
                 <StackPanel>
                     <TextBlock Text="📝 Booking Reservation" FontSize="26" FontWeight="Bold" Margin="30"/>
+                    
+                    <!-- Search & Action Buttons -->
+                    <StackPanel Margin="30,10,30,20">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <TextBox x:Name="txtSearchBooking" Width="300" Height="35" Padding="10,8"
+                                     VerticalContentAlignment="Center"/>
+                            <Button x:Name="btnSearchBooking" Content="Search" Width="100" Height="35" Margin="5,0,0,0"
+                                    Background="#8B5CF6" Foreground="White" BorderThickness="0"
+                                    Click="btnSearchBooking_Click"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="btnManageBooking" Content="Manage" Width="100" Height="35" Margin="0,0,5,0"
+                                    Background="#3B82F6" Foreground="White" BorderThickness="0"
+                                    Click="btnManageBooking_Click"/>
+                            <Button x:Name="btnDeleteBooking" Content="Delete" Width="100" Height="35"
+                                    Background="#EF4444" Foreground="White" BorderThickness="0"
+                                    Click="btnDeleteBooking_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+
                     <DataGrid x:Name="dgBookReservation" AutoGenerateColumns="False" Height="300" Margin="10">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="BookingReservationId" Binding="{Binding BookingReservationId}"/>
