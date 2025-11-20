@@ -174,18 +174,17 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <DataGrid x:Name="dgBookReservation" AutoGenerateColumns="False" Height="300" Margin="10">
+                    <DataGrid x:Name="dgBookReservation" AutoGenerateColumns="False" Margin="30,0,30,30"
+                              CanUserAddRows="False" SelectionMode="Single">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="BookingReservationId" Binding="{Binding BookingReservationId}"/>
-                            <DataGridTextColumn Header="BookingDate" Binding="{Binding BookingDate}"/>
-                            <DataGridTextColumn Header="TotalPrice" Binding="{Binding TotalPrice}"/>
-                            <DataGridTextColumn Header="CustomerFullName" Binding="{Binding Customer.CustomerFullName}"/>
-                            <DataGridTextColumn Header="BookingStatus" Binding="{Binding BookingStatus}"/>
-                            <DataGridTextColumn Header="RoomCount" Binding="{Binding BookingDetails.Count}"/>
-                            <DataGridTextColumn Header="FirstRoomNumber" Binding="{Binding BookingDetails[0].Room.RoomNumber}"/>
-                            <DataGridTextColumn Header="FirstRoomType" Binding="{Binding BookingDetails[0].Room.RoomType.RoomTypeName}"/>
-                            <DataGridTextColumn Header="StartDate" Binding="{Binding BookingDetails[0].StartDate}"/>
-                            <DataGridTextColumn Header="EndDate" Binding="{Binding BookingDetails[0].EndDate}"/>
+                            <DataGridTextColumn Header="ID" Binding="{Binding BookingReservationId}" Width="50"/>
+                            <DataGridTextColumn Header="Booking Date" Binding="{Binding BookingDate}" Width="150"/>
+                            <DataGridTextColumn Header="Customer Name" Binding="{Binding Customer.CustomerFullName}" Width="200"/>
+                            <DataGridTextColumn Header="Total Price" Binding="{Binding TotalPrice}" Width="*"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding BookingStatus}" Width="120"/>
+                            <DataGridTextColumn Header="Room #" Binding="{Binding BookingDetails[0].Room.RoomNumber}" Width="120"/>
+                            <DataGridTextColumn Header="Start Date" Binding="{Binding BookingDetails[0].StartDate}" Width="200"/>
+                            <DataGridTextColumn Header="End Date" Binding="{Binding BookingDetails[0].EndDate}" Width="200"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
@@ -200,13 +199,14 @@
                     <!-- Thanh filter Start–End -->
                     <StackPanel Orientation="Horizontal" Margin="30,0,30,10">
                         <TextBlock Text="From:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <DatePicker x:Name="dpStart" Width="130" Margin="0,0,20,0"/>
+                        <TextBox x:Name="txtDateStart" Width="130" Height="30" Padding="5" Margin="0,0,20,0" VerticalContentAlignment="Center"/>
                         <TextBlock Text="To:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <DatePicker x:Name="dpEnd" Width="130" Margin="0,0,20,0"/>
+                        <TextBox x:Name="txtDateEnd" Width="130" Height="30" Padding="5" Margin="0,0,20,0" VerticalContentAlignment="Center"/>
                         <Button x:Name="btnStReport" Content="Generate" Width="100" Click="btnStReport_Click"/>
                     </StackPanel>
 
-                    <DataGrid x:Name="dgReport" AutoGenerateColumns="False" Height="300" Margin="10">
+                    <DataGrid x:Name="dgReport" AutoGenerateColumns="False" Height="300" Margin="10"
+                              CanUserAddRows="False" SelectionMode="Single">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="BookingReservationId" Binding="{Binding BookingReservationId}"/>
                             <DataGridTextColumn Header="BookingDate" Binding="{Binding BookingDate}"/>
@@ -277,7 +277,8 @@
             <!-- History -->
             <Grid x:Name="panelHistory" Visibility="Collapsed" Background="#F1F5F9">
                 <TextBlock Text="📜 Booking Detail" FontSize="26" FontWeight="Bold" Margin="30"/>
-                <DataGrid x:Name="dgBookReserabcvation" AutoGenerateColumns="False" Height="300" Margin="10">
+                <DataGrid x:Name="dgBookReserabcvation" AutoGenerateColumns="False" Height="300" Margin="10"
+                          CanUserAddRows="False" SelectionMode="Single">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="BookingReservationId" Binding="{Binding BookingReservationId}"/>
                         <DataGridTextColumn Header="BookingDate" Binding="{Binding BookingDate}"/>

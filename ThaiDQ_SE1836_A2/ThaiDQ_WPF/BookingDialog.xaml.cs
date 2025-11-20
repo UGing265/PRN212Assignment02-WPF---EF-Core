@@ -136,26 +136,26 @@ namespace ThaiDQ_WPF
             DateOnly endDate = DateOnly.ParseExact(txtEndDate.Text, "dd/MM/yyyy");
             decimal actualPrice = decimal.Parse(txtActualPrice.Text);
 
-            var newBooking = new BookingReservation
-            {
-                CustomerId = customerId,
-                BookingDate = bookingDate,
-                TotalPrice = totalPrice,
-                BookingStatus = bookingStatus
-            };
-
-            var bookingDetail = new BookingDetail
-            {
-                RoomId = selectedRoom.RoomId,
-                StartDate = startDate,
-                EndDate = endDate,
-                ActualPrice = actualPrice
-            };
-
-            newBooking.BookingDetails.Add(bookingDetail);
-
             try
             {
+                var newBooking = new BookingReservation
+                {
+                    CustomerId = customerId,
+                    BookingDate = bookingDate,
+                    TotalPrice = totalPrice,
+                    BookingStatus = bookingStatus,
+                    BookingDetails = new List<BookingDetail>
+                    {
+                        new BookingDetail
+                        {
+                            RoomId = selectedRoom.RoomId,
+                            StartDate = startDate,
+                            EndDate = endDate,
+                            ActualPrice = actualPrice
+                        }
+                    }
+                };
+
                 _bookingService.AddBookingReservation(newBooking);
                 Booking = newBooking;
                 DialogResult = true;

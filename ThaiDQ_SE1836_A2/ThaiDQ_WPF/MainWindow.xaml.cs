@@ -301,11 +301,18 @@ namespace ThaiDQ_WPF
 
         private void btnStReport_Click(object sender, RoutedEventArgs e)
         {
-            DateTime startDt = dpStart.SelectedDate ?? DateTime.MinValue;
-            DateTime endDt = dpEnd.SelectedDate ?? DateTime.MaxValue;
+            DateOnly start = DateOnly.MinValue;
+            DateOnly end = DateOnly.MaxValue;
 
-            DateOnly start = DateOnly.FromDateTime(startDt);
-            DateOnly end = DateOnly.FromDateTime(endDt);
+            if (!string.IsNullOrWhiteSpace(txtDateStart.Text) && DateOnly.TryParseExact(txtDateStart.Text, "dd/MM/yyyy", out var parsedStart))
+            {
+                start = parsedStart;
+            }
+
+            if (!string.IsNullOrWhiteSpace(txtDateEnd.Text) && DateOnly.TryParseExact(txtDateEnd.Text, "dd/MM/yyyy", out var parsedEnd))
+            {
+                end = parsedEnd;
+            }
 
             dgReport.ItemsSource = _bookingService.GetStatisticReport(start, end);
         }
