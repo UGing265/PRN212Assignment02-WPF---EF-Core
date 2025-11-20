@@ -58,8 +58,12 @@ D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\bin\Debug\net8.0-windows\BLL.pdb
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\bin\Debug\net8.0-windows\DAL.pdb
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\ThaiDQ_WPF.csproj.AssemblyReference.cache
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\CustomerDialog.baml
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\RoomDialog.baml
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\CustomerDialog.g.cs
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\LoginWindow.g.cs
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\MainWindow.g.cs
+D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\RoomDialog.g.cs
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\App.g.cs
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\ThaiDQ_WPF_MarkupCompile.cache
 D:\AShiroru\LessonFPT\semester 5\PRN212\assgin\ass2\ThaiDQ_SE1836_A2\ThaiDQ_WPF\obj\Debug\net8.0-windows\ThaiDQ_WPF_MarkupCompile.lref
